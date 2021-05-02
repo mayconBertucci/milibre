@@ -4,7 +4,7 @@ export function Footer() {
     return (
         <footer>
             <div className={styles.footerContainer}>
-                &copy;Maycon Bertucci
+                &copy;Maycon Bertucci & Nayara NIvea
             </div>
         </footer>
     );

@@ -1,5 +1,7 @@
 import { getCustomRepository } from "typeorm";
+import { User } from "../entities/User";
 import { BookRepository } from "../repositories/BookRepository";
+import { UserRepository } from "../repositories/UserRepository";
 
 interface IBookCreate {
     name: string,
@@ -9,7 +11,8 @@ interface IBookCreate {
     genre: string,
     photo: string,
     book_status: string,
-    book_note: number
+    book_note: number,
+    user_id: string;
 }
 
 class BookService {
@@ -21,12 +24,13 @@ class BookService {
         genre,
         photo,
         book_status,
-        book_note
+        book_note,
+        user_id, 
     }: IBookCreate) {
         const bookRepository = getCustomRepository(BookRepository);
+        const userRepository = getCustomRepository(UserRepository);
    
         const bookAlreadyExist = await bookRepository.findOne({ name });
-        console.log(bookAlreadyExist);
         if (bookAlreadyExist) {
             throw new Error('Book already exists!');
         }
@@ -39,7 +43,8 @@ class BookService {
             genre,
             photo,
             book_status,
-            book_note
+            book_note,
+            user_id
         });
 
         await bookRepository.save(book);

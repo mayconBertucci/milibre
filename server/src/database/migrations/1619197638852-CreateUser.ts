@@ -35,12 +35,12 @@ export class CreateUser1619179670138 implements MigrationInterface {
                     },
                     {
                         name: 'user_note',
-                        type: 'double',
+                        type: 'number',
                         default: 0
                     },
                     {
                         name: 'points',
-                        type: 'double',
+                        type: 'number',
                         default: 0
                     },
                     {
@@ -63,11 +63,6 @@ export class CreateUser1619179670138 implements MigrationInterface {
                         type: 'Date'
                     },
                     {
-                        name: 'book_id',
-                        type: 'uuid',
-                        isNullable: true
-                    },
-                    {
                         name: 'contact_id',
                         type: 'uuid',
                         isNullable: true
@@ -84,14 +79,6 @@ export class CreateUser1619179670138 implements MigrationInterface {
                     }
                 ],
                 foreignKeys: [
-                    {
-                        name: 'FKBook',
-                        referencedTableName: 'book',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['book_id'],
-                        onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE'
-                    },
                     {
                         name: 'FKContact',
                         referencedTableName: 'user',

@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
+import { User } from "./User";
 
 
 @Entity('book')
@@ -30,6 +31,13 @@ class Book {
 
     @Column()
     book_note: number;
+
+    @JoinColumn({ name: 'user_id' })
+    @ManyToOne(type => User, user => user.book)
+    user: User;
+
+    @Column()
+    user_id: string;
     
     @UpdateDateColumn()
     updated_at: Date;

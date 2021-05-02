@@ -4,6 +4,12 @@ import { useEffect, useState } from 'react';
 
 import styles from './styles.module.scss';
 
+interface IUser {
+    name: string,
+    location: string,
+    user_note: number,
+}
+
 interface IBook {
     id: string,
     name: string,
@@ -13,27 +19,12 @@ interface IBook {
     genre: string,
     photo: string,
     book_status: string,
-    book_note: number
-}
-
-interface IUser {
-    id: string,
-    name: string,
-    email: string,
-    password: string,
-    birthday: Date,
-    photo: string,
-    location: string,
-    user_note: number,
-    points: string,
-    favorite_book: string,
-    current_book: string,
-    favorite_author: string,
+    book_note: number, 
+    user: IUser
 }
 
 export function CardBook() {
     const [data, setData] = useState<IBook[]>([]);
-    const [user, setUser] = useState<IUser>();
  
     const getData = async () => {
         const response = await fetch('http://localhost:3333/books', {
@@ -42,17 +33,7 @@ export function CardBook() {
 
         const parsedRes = await response.json();
         setData(parsedRes);
-    }
-
-    const getUser = async (id: string) => {
-        const response = await fetch(`http://localhost:3333/users/${id}`, {
-            method: 'GET',
-        }); 
-
-        const parsedRes = await response.json();
-        console.log(parsedRes);
-        setUser(parsedRes);
-    }
+    } 
 
     useEffect(() => {
         getData();
@@ -65,10 +46,10 @@ export function CardBook() {
                     <article className={styles.card} key={element.id}>
                         <a href="#">
                             <div className={styles.cardHearder}>
-                                <img src={element.photo} alt="Imagen del libro" className={styles.photo} />
+                               <img src={`${element.photo}`} alt="Imagen del libro" className={styles.photo} />
                             </div>
                             <div className={styles.carBody}>
-                                <h2>{element.name}</h2>
+                                <h4>{element.name}</h4>
                                 <table className={styles.bookDescription}>
                                     <thead>
                                         <tr>
@@ -79,9 +60,8 @@ export function CardBook() {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            {getUser(element.id)}
-                                            <td>{user.name}</td>
-                                            <td>{user.location}</td>
+                                            <td>{element.user.name}</td>
+                                            <td>{element.user.location}</td>
                                             <td>{element.book_status}</td>
                                         </tr>
                                     </tbody>

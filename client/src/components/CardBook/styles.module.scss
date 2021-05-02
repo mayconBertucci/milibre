@@ -1,9 +1,10 @@
 .cardsBookContainer {
-    width: 100%;
+    min-height: calc(100vh - 341px);
 
     display: grid;
-    grid-gap: 26px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+
     margin: 40px auto;
 
     .card {
@@ -12,20 +13,24 @@
         border-radius: 10px;
         transition: all 0.25s;
         background: #fff;
-        width: 250px;
-        padding: 20px 10px;
+        padding: 10px;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
 
+        position: relative;
         .cardHeader {
             padding: 10px 30px;
         }
 
         .photo {
-            width: 8rem;
-            border-radius: 20px;
+            width: 10rem;
+            border-radius: 6px;
         }
 
-        h2 {
-            margin: 20px 0;
+        h4 {
+            margin: 25px 0;
         }
 
         .bookDescription, .notes {
@@ -53,6 +58,9 @@
         }
 
         .notes {
+            width: 80%;
+            margin: auto;
+
             .stars {
                 font-size: .8rem;
                 color: #00BFA6;  
@@ -65,6 +73,23 @@
     .card:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 12px rgb(0 0 0 / 30%);
+    }
+
+    @media screen and (max-width: 1096px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (max-width: 840px) {
+        grid-template-columns: repeat(2, 1fr);
+        
+    }
+
+    @media screen and (max-width: 640px) {
+        grid-template-columns: repeat(1, 1fr);
+        .card {
+            width: 70%;
+            margin: auto;
+        }
     }
 
 }

@@ -8,6 +8,7 @@ const userController = new UserController();
 const bookController = new BookController();
 
 //Routes User
+routes.get('/users', userController.show);
 routes.get('/users/:id', userController.findOne);
 routes.post('/users', userController.create);
 

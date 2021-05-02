@@ -12,7 +12,8 @@ interface IUserCreate {
     points: number,
     favorite_book: string,
     current_book: string,
-    favorite_author: string
+    favorite_author: string,
+    contact_id: string
 }
 
 class UserService {
@@ -27,7 +28,8 @@ class UserService {
         points,
         favorite_book,
         current_book,
-        favorite_author
+        favorite_author,
+        contact_id
     }: IUserCreate) {
         const userRepository = getCustomRepository(UserRepository);
         
@@ -48,9 +50,9 @@ class UserService {
             points,
             favorite_book,
             current_book,
-            favorite_author
+            favorite_author,
+            contact_id
         });
-    
         await userRepository.save(user);
 
         return user;

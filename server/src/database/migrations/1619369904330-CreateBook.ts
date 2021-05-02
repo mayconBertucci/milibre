@@ -45,8 +45,13 @@ export class CreateBook1619369904330 implements MigrationInterface {
                     },
                     {
                         name: 'book_note',
-                        type: 'double',
+                        type: 'number',
                         default: 0
+                    },
+                    {
+                        name: 'user_id',
+                        type: 'uuid',
+                        isNullable: true
                     },
                     {
                         name: 'updated_at',
@@ -57,6 +62,16 @@ export class CreateBook1619369904330 implements MigrationInterface {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()'
+                    }
+                ],
+                foreignKeys: [
+                    {
+                        name: 'FKUser',
+                        referencedTableName: 'user',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['user_id'],
+                        onDelete: 'CASCADE',
+                        onUpdate: 'CASCADE'
                     }
                 ]
             })

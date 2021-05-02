@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid';
+import { Book } from "./Book";
 
 
 @Entity('user')
@@ -39,6 +40,16 @@ class User {
 
     @Column()
     favorite_author: string;
+
+    @JoinColumn({ name: 'contact_id' })
+    @OneToMany(type => User, user => user.contacts)
+    contacts: User[];
+    
+    @OneToMany(type => Book, book => book.user)
+    book: Book[];
+
+    @Column()
+    contact_id: string;
 
     @UpdateDateColumn()
     updated_at: Date;
