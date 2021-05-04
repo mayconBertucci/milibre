@@ -1,16 +1,15 @@
 import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
-import { BookRepository } from "../repositories/BookRepository";
 import { BookService } from "../services/BookService";
 import axios, { AxiosResponse } from 'axios';
 
 interface IPhoto {
     items: [{
         volumeInfo: {
-            title: string
+            title: string;
             imageLinks: {
-                thumbnail: string
+                thumbnail: string;
             }
+            averageRating: number;
         }
     }]
 }
@@ -25,15 +24,19 @@ class BookController {
                 year,
                 genre,
                 book_status,
-                book_note,
                 user_id
             } = req.body;
 
             const bookService = new BookService();
-            
+
             const response: AxiosResponse<IPhoto> = await axios({ method: 'get', url: `https://www.googleapis.com/books/v1/volumes?q=${titol}` });
             const name =  response.data.items[0].volumeInfo.title.toString();
             const photo = response.data.items[0].volumeInfo.imageLinks.thumbnail.toString();
+            let book_note = response.data.items[0].volumeInfo.averageRating;
+
+            if (book_note === undefined) {
+                book_note = 0;
+            }
 
             const book = await bookService.create({
                 name,
@@ -55,10 +58,10 @@ class BookController {
 
     async show(req: Request, res: Response) {
         try {
-            const bookRepository = getCustomRepository(BookRepository);
-            const all = await bookRepository.find({ relations: ["user"] });
+            const bookService = new BookService();
+            const books = await bookService.find();
         
-            return res.json(all);
+            return res.json(books);
             
         } catch (error) {
             return res.status(400).json({ message: error.message });

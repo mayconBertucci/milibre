@@ -25,7 +25,7 @@ interface IBook {
 
 export function CardBook() {
     const [data, setData] = useState<IBook[]>([]);
- 
+
     const getData = async () => {
         const response = await fetch('http://localhost:3333/books', {
             method: 'GET',
@@ -71,21 +71,38 @@ export function CardBook() {
                                     <tbody>
                                         <tr>
                                             <th>Libro: </th>
-                                            <td>
+                                            <td className={styles.bookStarsNotActiv}>
                                                 <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                 <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                 <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                 <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                <div className={styles.bookStarsActiv} style={{
+                                                        width: `calc(${(element.book_note * 20)}% - ${element.book_note > 0 ? (Math.floor(element.book_note - 1) * 4) : 0}px)`
+                                                    }}>
+                                                    <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                    <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                    <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                    <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                    <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Usuario: </th>
-                                            <td className={styles.stars}>
+                                            <td className={styles.userStarsNotActiv}>
                                                 <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                 <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                 <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                 <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                 <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                <div className={styles.userStarsActiv}>
+                                                    <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                    <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                    <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                    <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                    <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
