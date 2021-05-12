@@ -3,11 +3,9 @@ import cors from "cors";
 
 import './database';
 import 'reflect-metadata';
+import 'dotenv/config';
 
 import { routes } from './routes'
-
-const PORT = 3333;
-const HOST = '0.0.0.0'
 
 const app = express();
 
@@ -16,4 +14,4 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(routes);
 
-app.listen(PORT, HOST, () => console.log(`Server is running on port ${PORT}`));
+app.listen(Number(process.env.PORT), process.env.HOST, () => console.log(`Server is running on port ${process.env.PORT}`));

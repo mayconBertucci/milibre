@@ -1,19 +1,18 @@
 import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../repositories/UserRepository";
 
+import bcrypt from 'bcrypt';
+
 interface IUserCreate {
     name: string,
     email: string,
     password: string,
-    birthday: Date,
     photo: string,
+    birthday: Date,
     location: string,
-    user_note: number,
-    points: number,
     favorite_book: string,
     current_book: string,
     favorite_author: string,
-    contact_id: string
 }
 
 class UserService {
@@ -22,14 +21,10 @@ class UserService {
         email,
         password,
         birthday,
-        photo,
         location,
-        user_note,
-        points,
         favorite_book,
         current_book,
         favorite_author,
-        contact_id
     }: IUserCreate) {
         const userRepository = getCustomRepository(UserRepository);
         
@@ -39,24 +34,34 @@ class UserService {
             throw new Error('User already exists!');
         }
 
+        const passwordBcrypt = await bcrypt.hash(password, 10);
+
         const user = userRepository.create({
             name,
             email,
-            password,
+            password: passwordBcrypt,
             birthday: new Date(birthday),
-            photo,
             location,
-            user_note,
-            points,
+            user_note: 0,
+            points: 1,
             favorite_book,
             current_book,
             favorite_author,
-            contact_id
         });
         await userRepository.save(user);
 
         return user;
     }
+
+    async update(userUpdate: IUserCreate){
+        const userRepository = getCustomRepository(UserRepository);
+
+        const user = userRepository.create(userUpdate);
+        console.log(user)
+        await userRepository.save(user);
+
+        return user;
+    }; 
 }
 
 export { UserService }

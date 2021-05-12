@@ -3,6 +3,10 @@ import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../repositories/UserRepository";
 import { UserService } from "../services/UserService";
 
+interface MulterRequest extends Request {
+    file: any;
+}
+
 class UserController {
     async create(req: Request, res: Response) {
         try {
@@ -13,14 +17,11 @@ class UserController {
                 birthday,
                 photo,
                 location,
-                user_note,
-                points,
                 favorite_book,
                 current_book,
                 favorite_author,
-                contact_id
             } = req.body;
-        
+
             const userService = new UserService();
 
             const user = await userService.create({
@@ -30,12 +31,9 @@ class UserController {
                 birthday,
                 photo,
                 location,
-                user_note,
-                points,
                 favorite_book,
                 current_book,
                 favorite_author,
-                contact_id
             });
 
             return res.json(user);
@@ -62,6 +60,23 @@ class UserController {
             const id = req.params.id;
             const user = await userRepository.findOneOrFail({ id: id });
             return res.json(user);
+        } catch (error) {
+            return res.status(400).json({ message: error.message });
+        }
+    }
+
+    async updatePhoto(req: MulterRequest, res: Response) {
+        try {
+            const { originalname: name, size, key, location: url = "" } = req.file;
+            
+            const userRepository = getCustomRepository(UserRepository);
+
+            const id = req.params.id;
+            const user = await userRepository.findOneOrFail({ id: id });
+            user.photo = url;
+
+            const userService = new UserService();
+            return res.status(200).json(userService.update(user));
         } catch (error) {
             return res.status(400).json({ message: error.message });
         }

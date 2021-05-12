@@ -1,0 +1,88 @@
+.container {
+    min-height: calc(100vh - 147px);
+
+    .wrapper {
+        width: 85%;
+        max-width: 980px;
+
+        margin: auto;
+
+        .aside {
+            width: 40%;
+            max-width: 250px;
+            height: 100%;
+            background: #fff;
+
+            display: flex;
+            justify-content: center;
+            border-radius: 10px;
+            text-align: center;
+            min-height: 75vh;
+
+            .user {
+                a {
+                    position: relative;
+                }
+
+                img {
+                    margin-top: 20px;
+                    width: 6rem;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+    
+                h3 {
+                    color: #30283B;
+                }
+    
+                .updatePhoto {
+                    display: none;
+                    background: #30283B;
+                    color: #fff;
+                    position: absolute;
+                    border-radius: 10px;
+                    width: 200px;
+                    padding: 10px 0;
+                    justify-content: center;
+                    top: 28px;
+                    left: -50%;
+    
+                    input[type="file"] {
+                        display: none;
+                    }
+
+                    label:hover {
+                        opacity: .6;
+                        cursor: pointer;
+                    }
+
+                    &.on {
+                        display: flex;
+                    }
+                }
+
+                .updatePhoto::before {
+                    content: '';
+                    color: #fff;
+                    position: absolute;
+                    transform: rotate(180deg);
+                    top: -20px;
+                    left: 43%;
+                    border-top: 10px solid #30283B;
+                    border-left: 10px solid transparent;
+                    border-bottom: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                }
+    
+            }
+        }
+    
+        .sectionRight {
+            width: 60%;
+        }
+    }
+
+    @media screen and (max-width: 790px) {
+        min-height: calc(100vh - 133px);
+    }
+}

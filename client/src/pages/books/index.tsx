@@ -1,7 +1,7 @@
-import styles from './styles.module.scss';
-
 import SearchBook from '../../components/SearchBook'
 import { CardBook } from '../../components/CardBook';
+
+import styles from './styles.module.scss';
 
 function Books() {
     return(

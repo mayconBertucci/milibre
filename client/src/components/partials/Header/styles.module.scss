@@ -11,7 +11,9 @@
         nav {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             max-width: 500px;
+            position: relative;
     
             
             a:hover {
@@ -37,7 +39,7 @@
                         padding: 2px 20px;
                         border-radius: 6px;
                         margin-right: 6px;
-                        margin-left: 25px;
+                        margin-left: 18px;
                     }
                 }
     
@@ -70,6 +72,56 @@
                         opacity: 1; 
                     }
                 }
+            }
+
+            .menuUserLogin {
+                display: flex;
+                
+                img {
+                    width: 2.8rem;
+                    height: 2.8rem;
+                    border-radius: 150px;
+                    object-fit: cover;
+                    outline: none;
+                }
+
+                button {
+                    padding: 0;
+                    border: none;
+                    background: none;
+                }
+            }
+
+            .userOptions {
+                position: absolute;
+                top: 58px;
+                right: 12px;
+                background: #30283B;
+                padding: 20px;
+                border-radius: 6px;
+                display: none;
+                transition: all .3s ease-in-out;
+
+                a {
+                    color: #fff;
+                }
+
+                &.on {
+                    display: block;
+                }
+            }
+
+            .userOptions::before {
+                content: '';
+                color: #fff;
+                position: absolute;
+                transform: rotate(180deg);
+                top: -18px;
+                right: 1.5px;
+                border-top: 10px solid #30283B;
+                border-left: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+                border-right: 10px solid transparent;
             }
         }    
     }
@@ -120,6 +172,8 @@
                         li {
                             margin-right: 0;
                         }
+
+                        margin-bottom: 40px;
                     }
             
                     .menuUser {
@@ -153,6 +207,34 @@
                                 color: #00AC96;
                             }
                         }
+                    }
+
+                    .userOptions {
+                        background: #00AC96;
+                        top: 325px;
+                        right: 25px;
+                        width: 90px;
+                        display: none;
+                        
+                        
+                        a {
+                            font-size: 1.2rem;
+                            line-height: 30px;
+                            font-weight: 100;
+                        }
+
+                        a:hover {
+                            background: #00AC96;
+                            color: #30283B;
+                        }
+
+                        &.on {
+                            display: block;
+                        }
+                    }
+
+                    .userOptions::before {
+                        border-top: 10px solid #00AC96;
                     }
                 }
             }

@@ -1,7 +1,7 @@
-import styles from './styles.module.scss';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
+import styles from './styles.module.scss';
 
 export default function SearchBook() {
     return(

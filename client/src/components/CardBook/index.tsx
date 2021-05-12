@@ -40,7 +40,7 @@ export function CardBook() {
     }, []);
 
     return(
-        <section className={styles.cardsBookContainer}>
+        <div className={styles.cardsBookContainer}>
             {data.length > 0 && data.map((element) => { 
                 return(
                     <article className={styles.card} key={element.id}>
@@ -112,6 +112,6 @@ export function CardBook() {
                     </article>
                 );
             })}
-        </section>
+        </div>
     );
 }

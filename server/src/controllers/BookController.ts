@@ -60,7 +60,7 @@ class BookController {
         try {
             const bookService = new BookService();
             const books = await bookService.find();
-        
+
             return res.json(books);
             
         } catch (error) {
