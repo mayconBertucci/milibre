@@ -18,7 +18,6 @@ class UserController {
                 photo,
                 location,
                 favorite_book,
-                current_book,
                 favorite_author,
             } = req.body;
 
@@ -32,7 +31,6 @@ class UserController {
                 photo,
                 location,
                 favorite_book,
-                current_book,
                 favorite_author,
             });
 
@@ -67,8 +65,8 @@ class UserController {
 
     async updatePhoto(req: MulterRequest, res: Response) {
         try {
-            const { originalname: name, size, key, location: url = "" } = req.file;
-            
+            const { location: url = "" } = req.file;
+
             const userRepository = getCustomRepository(UserRepository);
 
             const id = req.params.id;
@@ -76,7 +74,35 @@ class UserController {
             user.photo = url;
 
             const userService = new UserService();
-            return res.status(200).json(userService.update(user));
+            userService.update(user)
+            return res.status(200).json(user);
+        } catch (error) {
+            return res.status(400).json({ message: error.message });
+        }
+    }
+
+    async setPoints(req: Request, res: Response) {
+        try {
+            const userRepository = getCustomRepository(UserRepository);
+
+            const id = req.params.id
+            const user = await userRepository.findOneOrFail({ id: id });
+            user.points++;
+
+            return res.json(user);
+        } catch (error) {
+            return res.status(400).json({ message: error.message });
+        }
+    }
+
+    async setNumBooks(req: Request, res: Response) {
+        try {
+            const userRepository = getCustomRepository(UserRepository);
+
+            const id = req.params.id;
+            const user = await userRepository.findOneOrFail({ id: id });
+            user.num_books++;
+            return res.json(user);
         } catch (error) {
             return res.status(400).json({ message: error.message });
         }

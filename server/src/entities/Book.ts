@@ -9,7 +9,7 @@ class Book {
     id: string;
 
     @Column()
-    name: string;
+    titol: string;
 
     @Column()
     author: string;
@@ -31,7 +31,7 @@ class Book {
 
     @Column()
     book_note: number;
-
+    
     @JoinColumn({ name: 'user_id' })
     @ManyToOne(type => User, user => user.book)
     user: User;
@@ -44,6 +44,7 @@ class Book {
 
     @CreateDateColumn()
     created_at: Date;
+    
 
     constructor() {
         if (!this.id) {

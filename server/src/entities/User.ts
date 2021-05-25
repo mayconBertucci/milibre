@@ -27,19 +27,16 @@ class User {
     location: string;
 
     @Column()
-    user_note: number;
-
-    @Column()
     points: number;
 
     @Column()
     favorite_book: string;
 
     @Column()
-    current_book: string;
+    favorite_author: string;
 
     @Column()
-    favorite_author: string;
+    num_books: number;
 
     @JoinColumn({ name: 'contact_id' })
     @OneToMany(type => User, user => user.contacts)

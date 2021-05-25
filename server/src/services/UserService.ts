@@ -11,7 +11,6 @@ interface IUserCreate {
     birthday: Date,
     location: string,
     favorite_book: string,
-    current_book: string,
     favorite_author: string,
 }
 
@@ -23,7 +22,6 @@ class UserService {
         birthday,
         location,
         favorite_book,
-        current_book,
         favorite_author,
     }: IUserCreate) {
         const userRepository = getCustomRepository(UserRepository);
@@ -42,10 +40,9 @@ class UserService {
             password: passwordBcrypt,
             birthday: new Date(birthday),
             location,
-            user_note: 0,
-            points: 1,
+            points: 0,
+            num_books: 0,
             favorite_book,
-            current_book,
             favorite_author,
         });
         await userRepository.save(user);
@@ -57,9 +54,8 @@ class UserService {
         const userRepository = getCustomRepository(UserRepository);
 
         const user = userRepository.create(userUpdate);
-        console.log(user)
         await userRepository.save(user);
-
+        
         return user;
     }; 
 }

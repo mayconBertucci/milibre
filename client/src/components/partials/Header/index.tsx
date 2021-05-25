@@ -1,6 +1,7 @@
 import styles from './styles.module.scss';
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../../contexts/UserContext';
+import Link from 'next/link'
 
 export function Header() {
     const [showMenu, setshowMenu] = useState(false);
@@ -29,7 +30,7 @@ export function Header() {
     return (
         <header>
             <div className={ styles.headerContainer }>
-                <h2><a href="index.html">Mi Libre</a></h2>
+                <h2><a href="/">Mi Libre</a></h2>
 
                 <div className={ showMenu ? `${styles.menuToggle} ${styles.on}` : styles.menuToggle } onClick={handleMenuToggle}>
                     <div className={ styles.one }></div>
@@ -39,26 +40,26 @@ export function Header() {
                 <div className={ showMenu ? `${styles.menuSection} ${styles.on}` : styles.menuSection }>
                     <nav>
                         <ul className={ styles.menu }>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="books">Libros</a></li>
-                            <li><a href="forum">Forum</a></li>
-                            <li><a href="chat">Chat</a></li>
+                            <li><Link href="/">Home</Link></li>
+                            <li><Link href="/books">Libros</Link></li>
+                            <li><Link href="/forum">Forum</Link></li>
+                            <li><Link href="/chat">Chat</Link></li>
                         </ul>
         
                         {(userContext.user === null)
                             ? (
                                 <ul className={ styles.menuUser }>
-                                    <li><a href="login">Login</a></li>
-                                    <li><a href="register">Registrarse</a></li>
+                                    <li><Link href="/login">Login</Link></li>
+                                    <li><Link href="/register">Registrarse</Link></li>
                                 </ul>
                             ) : (
                                 <div>
                                     <ul className={styles.menuUserLogin}>
-                                        <li><button className={styles.avatar} onClick={handleUserOptions} onBlur={handleUserOptions}><img src={userContext.user.photo} alt="avatar" /></button></li>
+                                        <li><button className={styles.avatar} onClick={handleUserOptions} ><img src={userContext.user.photo !== null ? userContext.user.photo : "img/profile-avatar.svg"} alt="avatar" /></button></li>
                                     </ul>
-                                    <ul className={showUserOptions ? `${styles.userOptions} ${styles.on}` : styles.userOptions}>
-                                        <li><a href="profile">Ver Perfil</a></li>
-                                        <li><a href='/ ' onClick={handleUserSection}>Salir</a></li>
+                                    <ul className={showUserOptions ? `${styles.userOptions} ${styles.on}` : styles.userOptions} onBlur={handleUserOptions}>
+                                        <li><Link href="/profile">Ver Perfil</Link></li>
+                                        <li><a href="/" onClick={handleUserSection}>Salir</a></li>
                                     </ul>
                                 </div>
                             )

@@ -9,6 +9,7 @@
         width: 100%;
         padding: 10px;
         top: 30px;
+        left: 0px;
         text-align: center;
         color: #ee5564;
         opacity: 0;
@@ -72,10 +73,12 @@
                 }
             }
     
-            input[type="button"] {
+            button {
                 width: 90%;
+                margin: 10px 20px;
                 color: #fff;
                 background: #34325E;
+                border-radius: 3px;
                 cursor: pointer;
                 padding: 4px;
                 position: relative;
@@ -83,12 +86,14 @@
                 transition: .3s;
                 z-index: 1;
                 margin-top: 40px;
+                outline: none;
                 border-bottom: 2px solid rgb(0 0 0 / 20%);
             }
 
-            input[type="button"]:hover {
+            button:hover {
                 background: #F5F6FA;
                 color: #00BFA6;
+                border: 1px solid #00BFA6;
             }
 
             a {

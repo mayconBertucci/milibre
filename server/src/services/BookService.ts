@@ -2,10 +2,9 @@ import { getCustomRepository } from "typeorm";
 import { BookRepository } from "../repositories/BookRepository";
 
 interface IBookCreate {
-    name: string,
+    titol: string,
     author: string,
     isbn: string,
-    year: Date,
     genre: string,
     photo: string,
     book_status: string,
@@ -15,10 +14,9 @@ interface IBookCreate {
 
 class BookService {
     async create ({
-        name,
+        titol,
         author,
         isbn,
-        year,
         genre,
         photo,
         book_status,
@@ -26,17 +24,11 @@ class BookService {
         user_id, 
     }: IBookCreate) {
         const bookRepository = getCustomRepository(BookRepository);
-        const bookAlreadyExist = await bookRepository.findOne({ name });
-
-        if (bookAlreadyExist) {
-            throw new Error('Book already exists!');
-        }
-
+    
         const book = bookRepository.create({
-            name,
+            titol,
             author,
             isbn,
-            year: new Date(year),
             genre,
             photo,
             book_status,

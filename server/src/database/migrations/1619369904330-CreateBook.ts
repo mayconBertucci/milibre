@@ -13,7 +13,7 @@ export class CreateBook1619369904330 implements MigrationInterface {
                         isPrimary: true,
                     },
                     {
-                        name: 'name',
+                        name: 'titol',
                         type: 'varchar'
                     },
                     {

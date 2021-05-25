@@ -1,11 +1,10 @@
-import { Router } from 'express';
+import { Router, Response } from 'express';
 import { AuthController } from './controllers/AuthController';
 import { BookController } from './controllers/BookController';
 import { UserController } from './controllers/UserController';
 import authorization from './middleware/authorization';
 import multer from 'multer';
 import multerConfig from './config/multer.js'
-
 
 const routes = Router();
 const upload =  multer(multerConfig);
@@ -20,12 +19,19 @@ routes.post('/auth', authController.authenticate);
 
 //Routes User
 routes.get('/users', userController.show);
-routes.get('/users/:id', authorization, userController.findOne);
+routes.get('/users/:id', userController.findOne);
 routes.post('/users', userController.create);
 routes.post('/upload/:id', upload.single('file'), userController.updatePhoto);
+routes.patch('/user-num-books/:id', userController.setNumBooks);
+routes.patch('/user-points/:id', userController.setPoints);
 
 //Routes Book
 routes.get('/books', bookController.show);
-routes.post('/books',  authorization, bookController.create);
+routes.get('/books-search/:titol', bookController.searchBook);
+routes.get('/books-user/:id', bookController.showBooksUser);
+routes.post('/books', bookController.create);
+routes.post('/upload', upload.single('file'), bookController.getPhotoUrl);
+
+
 
 export { routes };

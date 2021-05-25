@@ -11,22 +11,21 @@ interface IUser {
     name: string,
     photo: string,
     points: number,
-    user_note: 0,
-    num_books: 0
+    user_note: 0
 }
 
 interface IUserContextData {
     user: IUser,
-    signIn: Function
+    setState: Function
 }
 
 interface IUserContextProps {
     children: ReactNode
 }
 
-export const UserContext = createContext({} as IUserContextData);
+export const UserRegContext = createContext({} as IUserContextData);
 
-export function UserProvider({children}: IUserContextProps) {
+export function UserRegProvider({children}: IUserContextProps) {
     const [user, setUser] = useState<IUser>({
         birthday: new Date(),
         contact_id: '',
@@ -38,17 +37,16 @@ export function UserProvider({children}: IUserContextProps) {
         name: '',
         photo: '',
         points: 0,
-        user_note: 0,
-        num_books: 0
+        user_note: 0
     });
     
-    const signIn = (responseUser: IUser) => {
+    const setState = (responseUser: IUser) => {
         setUser(responseUser);
     }
 
     return (
-        <UserContext.Provider value={{ user, signIn }} >
+        <UserRegContext.Provider value={{ user, setState }} >
             {children} 
-        </UserContext.Provider>
+        </UserRegContext.Provider>
     );
 }

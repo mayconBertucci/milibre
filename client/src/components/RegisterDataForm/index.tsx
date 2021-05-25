@@ -1,8 +1,10 @@
 import styles from './styles.module.scss';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useContext, useEffect, useRef } from 'react';
+import { UserRegContext } from './../../contexts/UserRegContext';
+import { useRouter } from 'next/router';
 
-interface IAuthUser {
+interface IUser {
     name: string,
     email: string,
     password: string,
@@ -13,44 +15,64 @@ interface IAuthUser {
 }
 
 export function RegisterDataForm() {
-    const [data, setData] = useState<IAuthUser>();
-    const [isValid, setIsValid] = useState(true);
-    
+    const [data, setData] = useState<IUser>();
+    const [isReg, setIsReg] = useState(false);
+    const [isValid, setIsvalid] = useState(true);
+    const userRegContext = useContext(UserRegContext);
+    const router = useRouter();
+
+    const hasMounted = useRef(false);
+    useEffect(() => {
+        if (!hasMounted.current) {
+            hasMounted.current = true;
+        } else {
+            onSubmit();
+        }
+    }, [isReg]);
+
     const onChange = (e: FormEvent<HTMLInputElement>) => {
         e.preventDefault();
 
         setData({ ...data, [e.currentTarget.name]: e.currentTarget.value });
     };
 
-    const handleModal = () => {
+    const handleReturn = (e) => {
+        e.preventDefault();
+        
+        router.push('/register');
+    }
+
+    const handleIsValid = (e) => {
+        e.preventDefault();
+
         if (data !== undefined) {
-            if (data.name !== undefined && data.email !== undefined && data.password !== undefined) {
-                if (data.name.length > 0 && data.email.length > 0 && data.password.length > 0) {
-                    setIsValid(true);
+            if (data.location !== undefined && data.birthday !== undefined) {
+                if (data.location.length > 0) {
+                    userRegContext.setState({...userRegContext.user, ...data }, data);
+                    setIsReg(true);
                 } else {
-                    setIsValid(false);
+                    setIsvalid(false);
                 }
             } else {
-                setIsValid(false);
+                setIsvalid(false);
             }
         } else {
-            setIsValid(false);
+            setIsvalid(false);
         }
     }
 
     const onSubmit = async () => {
-        console.log(data);
         const response = await fetch('http://localhost:3333/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(userRegContext.user),
         });
 
         const parsedRes = await response.json();
         if (parsedRes) {
-            window.location.href = '/login';
+            router.push('/login');
         }
     } 
 
@@ -65,8 +87,8 @@ export function RegisterDataForm() {
                 <span className={!isValid ? `${styles.message} ${styles.required}` : styles.message }>Campos Obligatorios *</span>
 
                 <div className={styles.buttonsActions}>
-                    <button className={styles.cancelar} onClick={handleModal}>Cancelar</button>
-                    <input type="button" className={styles.enviar} onClick={onSubmit} value="Enviar"/>
+                    <input type="button" className={styles.cancelar} onClick={handleReturn} value="Volver" />
+                    <button className={styles.enviar} onClick={handleIsValid}>Enviar</button>
                 </div>
             </form>
         </div>

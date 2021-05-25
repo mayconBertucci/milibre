@@ -2,6 +2,7 @@ import styles from './styles.module.scss';
 
 import { FormEvent, useState, useContext } from 'react';
 import { UserContext } from './../../contexts/UserContext';
+import { useRouter } from 'next/router';
 
 interface IAuthUser {
     email: string,
@@ -11,6 +12,7 @@ interface IAuthUser {
 export function LoginForm() {
     const [data, setData] = useState<IAuthUser>();
     const userContext = useContext(UserContext);
+    const router = useRouter();
 
     const onChange = (e: FormEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -33,7 +35,7 @@ export function LoginForm() {
             localStorage.setItem('token', JSON.stringify(parsedRes.token));
             localStorage.setItem('user', JSON.stringify(parsedRes.user));
             userContext.signIn(JSON.parse(localStorage.getItem('user')));
-            window.location.href = '/'
+            router.push('/');
         }
     } 
     

@@ -34,22 +34,12 @@ export class CreateUser1619179670138 implements MigrationInterface {
                         type: 'varchar',
                     },
                     {
-                        name: 'user_note',
-                        type: 'number',
-                        default: 0
-                    },
-                    {
                         name: 'points',
                         type: 'number',
                         default: 0
                     },
                     {
                         name: 'favorite_book',
-                        type: 'varchar',
-                        isNullable: true
-                    },
-                    {
-                        name: 'Current_book',
                         type: 'varchar',
                         isNullable: true
                     },
@@ -61,6 +51,11 @@ export class CreateUser1619179670138 implements MigrationInterface {
                     {
                         name: 'birthday',
                         type: 'Date'
+                    },
+                    {
+                        name: 'num_books',
+                        type: 'number',
+                        default: 0
                     },
                     {
                         name: 'contact_id',
@@ -76,7 +71,7 @@ export class CreateUser1619179670138 implements MigrationInterface {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()'
-                    }
+                    },
                 ],
                 foreignKeys: [
                     {
