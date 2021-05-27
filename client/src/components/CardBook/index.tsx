@@ -1,12 +1,12 @@
 import { faBook, faMapMarkerAlt, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import Link from 'next/link';
 import { FormEvent, useContext, useEffect, useState } from 'react';
 
 
 import styles from './styles.module.scss';
-import { SearchDataContext } from '../../contexts/search';
+import { SearchDataContext } from '../../contexts/SearchContext';
+import { useRouter } from 'next/router';
 
 interface IUser {
     name: string,
@@ -29,6 +29,7 @@ interface IBook {
 export function CardBook() {
     const [data, setData] = useState<IBook[]>([]);
     const searchData = useContext(SearchDataContext);
+    const router = useRouter();
 
     const getData = async () => {
         const response = await fetch('http://localhost:3333/books', {
@@ -59,6 +60,13 @@ export function CardBook() {
         }
     }
 
+    const setBookId = (e, id: string) => {
+        e.preventDefault();
+        
+        localStorage.setItem('book', id);
+        router.push('/book');
+    }
+
     useEffect(() => {
         getData();
     }, []);
@@ -78,56 +86,54 @@ export function CardBook() {
             <div className={styles.cardsBookContainer}>
                 {data.length > 0 && data.map((element) => { 
                     return(
-                        <Link href="/book" key={element.id}>
-                            <article className={styles.card} key={element.id}>
-                                <div className={styles.cardHearder}>
-                                <img src={element.photo !== null ? element.photo : 'img/Photos_re_pvh3.svg'} alt="Imagen del libro" className={styles.photo} />
-                                </div>
-                                <div className={styles.carBody}>
-                                    <h4>{element.titol}</h4>
-                                    <table className={styles.bookDescription}>
-                                        <thead>
-                                            <tr>
-                                                <th><FontAwesomeIcon icon={faUser} className={styles.icons} /></th>
-                                                <th><FontAwesomeIcon icon={faMapMarkerAlt} className={styles.icons} /></th>
-                                                <th><FontAwesomeIcon icon={faBook} className={styles.icons} /></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{element.user.name}</td>
-                                                <td>{element.user.location}</td>
-                                                <td>{element.book_status}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <table className={styles.notes}>
-                                        <thead></thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>Nota: </th>
-                                                <td className={styles.bookStarsNotActiv}>
+                        <article className={styles.card} key={element.id} onClick={e => setBookId(e, element.id)}>
+                            <div className={styles.cardHearder}>
+                            <img src={element.photo} alt="Imagen del libro" className={styles.photo} />
+                            </div>
+                            <div className={styles.carBody}>
+                                <h4>{element.titol}</h4>
+                                <table className={styles.bookDescription}>
+                                    <thead>
+                                        <tr>
+                                            <th><FontAwesomeIcon icon={faUser} className={styles.icons} /></th>
+                                            <th><FontAwesomeIcon icon={faMapMarkerAlt} className={styles.icons} /></th>
+                                            <th><FontAwesomeIcon icon={faBook} className={styles.icons} /></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{element.user.name}</td>
+                                            <td>{element.user.location}</td>
+                                            <td>{element.book_status}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table className={styles.notes}>
+                                    <thead></thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>Nota: </th>
+                                            <td className={styles.bookStarsNotActiv}>
+                                                <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                <FontAwesomeIcon icon={faStar} className={styles.stars} />
+                                                <div className={styles.bookStarsActiv} style={{
+                                                        width: `calc(${(element.book_note * 20)}% - ${element.book_note > 0 ? (Math.floor(element.book_note - 1) * 4) : 0}px)`
+                                                    }}>
                                                     <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                     <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                     <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                     <FontAwesomeIcon icon={faStar} className={styles.stars} />
                                                     <FontAwesomeIcon icon={faStar} className={styles.stars} />
-                                                    <div className={styles.bookStarsActiv} style={{
-                                                            width: `calc(${(element.book_note * 20)}% - ${element.book_note > 0 ? (Math.floor(element.book_note - 1) * 4) : 0}px)`
-                                                        }}>
-                                                        <FontAwesomeIcon icon={faStar} className={styles.stars} />
-                                                        <FontAwesomeIcon icon={faStar} className={styles.stars} />
-                                                        <FontAwesomeIcon icon={faStar} className={styles.stars} />
-                                                        <FontAwesomeIcon icon={faStar} className={styles.stars} />
-                                                        <FontAwesomeIcon icon={faStar} className={styles.stars} />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </article>
-                        </Link>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </article>
                     );
                 })}
         </div>

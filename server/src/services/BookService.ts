@@ -9,6 +9,7 @@ interface IBookCreate {
     photo: string,
     book_status: string,
     book_note: number,
+    description: string,
     user_id: string;
 }
 
@@ -21,6 +22,7 @@ class BookService {
         photo,
         book_status,
         book_note,
+        description,
         user_id, 
     }: IBookCreate) {
         const bookRepository = getCustomRepository(BookRepository);
@@ -33,6 +35,7 @@ class BookService {
             photo,
             book_status,
             book_note,
+            description,
             user_id
         });
 
@@ -46,6 +49,13 @@ class BookService {
         const books = await bookRepository.find({ relations: ["user"] });
     
         return books;
+    }
+
+    async findById(id: string) {
+        const bookRepository = getCustomRepository(BookRepository);
+        const book = await bookRepository.findOne(id, { relations: ["user"] });
+
+        return book;
     }
 }
 

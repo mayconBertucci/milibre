@@ -18,7 +18,7 @@ class Book {
     isbn: string;
 
     @Column()
-    year: Date;
+    description: string;
 
     @Column()
     genre: string;

@@ -145,7 +145,6 @@ export default function NewBookForm() {
             const parsedResNumBooks = await responseUser.json();
             userContext.signIn(parsedResNumBooks)
             localStorage.setItem('user', JSON.stringify(parsedResNumBooks));
-            console.log(parsedResNumBooks);
         }
 
         if(parsedRes) {
@@ -187,7 +186,6 @@ export default function NewBookForm() {
                         })}
                      </ul>
                 </div>
-                <input type="text" name="author" placeholder="Author" onChange={onChange} />
         
                 <div className={styles.sectionFooter}>
                     <label htmlFor="photo">Agregue una foto

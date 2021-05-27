@@ -26,7 +26,7 @@ export class CreateBook1619369904330 implements MigrationInterface {
                         isNullable: true
                     },
                     {
-                        name: 'year',
+                        name: 'description',
                         type: 'varchar',
                         isNullable: true
                     },

@@ -4,7 +4,7 @@ import { Header } from "../components/partials/Header";
 import { Footer } from '../components/partials/Footer';
 import { UserProvider } from './../contexts/UserContext';
 import { UserRegProvider } from '../contexts/UserRegContext';
-import { SearchDataProvider } from '../contexts/search';
+import { SearchDataProvider } from '../contexts/SearchContext';
 
 function MyApp({ Component, pageProps }) {
   return (

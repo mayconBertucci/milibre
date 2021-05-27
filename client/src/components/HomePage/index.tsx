@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { FormEvent, useContext } from 'react';
 
 import styles from './styles.module.scss';
-import { SearchDataContext } from './../../contexts/search';
+import { SearchDataContext } from '../../contexts/SearchContext';
 
 export function HomePage() {
     const router = useRouter();
