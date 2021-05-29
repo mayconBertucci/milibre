@@ -18,14 +18,15 @@
 
     .wrapper {
         width: 60%;
-        height: 550px;
+        height: 520px;
+        max-width: 650px;
         background: #fff;
         border-radius: 10px;
         display: flex;
         justify-content: center;
     
         form {
-            width: 68%;
+            width: 80%;
             display: flex;
             align-items: center;
             flex-direction: column;

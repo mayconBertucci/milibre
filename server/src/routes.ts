@@ -2,9 +2,11 @@ import { Router, Response } from 'express';
 import { AuthController } from './controllers/AuthController';
 import { BookController } from './controllers/BookController';
 import { UserController } from './controllers/UserController';
+import { SendMailController } from './controllers/SendMailController';
 import authorization from './middleware/authorization';
 import multer from 'multer';
 import multerConfig from './config/multer.js'
+
 
 const routes = Router();
 const upload =  multer(multerConfig);
@@ -12,6 +14,7 @@ const upload =  multer(multerConfig);
 const authController = new AuthController();
 const userController = new UserController();
 const bookController = new BookController();
+const sendMailController = new SendMailController();
 
 
 //Router Autentication
@@ -33,6 +36,8 @@ routes.get('/books/:id', bookController.getById);
 routes.post('/books', bookController.create);
 routes.post('/upload', upload.single('file'), bookController.getPhotoUrl);
 
+//Routes email
+routes.post('/email', sendMailController.execute);
 
 
 export { routes };

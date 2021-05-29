@@ -20,9 +20,9 @@ class UserController {
                 favorite_book,
                 favorite_author,
             } = req.body;
-
+            
             const userService = new UserService();
-
+            
             const user = await userService.create({
                 name,
                 email,
@@ -33,7 +33,7 @@ class UserController {
                 favorite_book,
                 favorite_author,
             });
-
+            
             return res.json(user);
         } catch (error) {
             return res.status(400).json({ message: error.message });

@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 import { FormEvent, useState, useContext } from 'react';
 import { UserContext } from './../../contexts/UserContext';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 interface IAuthUser {
     email: string,
@@ -20,23 +21,34 @@ export function LoginForm() {
         setData({ ...data, [e.currentTarget.name]: e.currentTarget.value });
     };
 
-    const onSubmit = async () => {
-        const response = await fetch('http://localhost:3333/auth', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            },
-            body: JSON.stringify(data),
-        });
+    const onSubmit = async (e: FormEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        
+        if (data) {
+            const response = await fetch('http://localhost:3333/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify(data),
+            });
 
-        const parsedRes = await response.json();
-        if (parsedRes.user !== undefined && parsedRes.token !== undefined) {
-            localStorage.setItem('token', JSON.stringify(parsedRes.token));
-            localStorage.setItem('user', JSON.stringify(parsedRes.user));
-            userContext.signIn(JSON.parse(localStorage.getItem('user')));
-            router.push('/');
+            const parsedRes = await response.json()
+            if (parsedRes.user !== undefined) {
+                localStorage.setItem('token', JSON.stringify(parsedRes.token));
+                localStorage.setItem('user', JSON.stringify(parsedRes.user));
+                userContext.signIn(JSON.parse(localStorage.getItem('user')));
+                router.push('/');
+            } else {
+                toast.error(parsedRes.message);
+            }
+            
+        } else {
+            toast.error('Campos obrigatorios');
         }
+
+
     } 
     
     return(
@@ -48,10 +60,10 @@ export function LoginForm() {
                 <form method="post">
                     <h2>Iniciar Sesión</h2>
 
-                    <input type="email" name="email" placeholder="E-mail" onChange={onChange}/>
-                    <input type="password" name="password" placeholder="Contraseña" onChange={onChange}/>
+                    <input type="email" name="email" placeholder="E-mail" required onChange={onChange}/>
+                    <input type="password" name="password" placeholder="Contraseña" required onChange={onChange}/>
                     <a href="#" className="recuperar-contrasena"><span>Recuperar Contraseña</span></a>
-                    <input type="button" value="Entrar" onClick={onSubmit}/>
+                    <button onClick={(e: FormEvent<HTMLButtonElement>) => onSubmit(e)}>Entrar</button>
                 </form>
             </div>
         </div>

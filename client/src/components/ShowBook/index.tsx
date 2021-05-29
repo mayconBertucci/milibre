@@ -88,8 +88,10 @@ export default function ShowBook() {
                                 </tbody>
                             </table>
                            
-                            {userContext.user.id !== data.user.id && (
-                                <button className={styles.bookExchange} onClick={handleModal}>Pedir intercambio</button>
+                            {userContext.user && (
+                                userContext.user.id !== data.user.id && (
+                                    <button className={styles.bookExchange} onClick={handleModal}>Pedir intercambio</button>
+                                )
                             )}
                         </div>
                         <div className={styles.bookDescription}>

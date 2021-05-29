@@ -29,7 +29,7 @@ class UserService {
         const userAlreadyExist = await userRepository.findOne({ email });
 
         if (userAlreadyExist) {
-            throw new Error('User already exists!');
+            throw new Error('Este e-mail ya se encuentra registrado!');
         }
 
         const passwordBcrypt = await bcrypt.hash(password, 10);

@@ -14,10 +14,14 @@ class AuthController {
 
             const user = await repository.findOne({ email: email });
 
+            if(!user) {
+                throw new Error("Este email no está registrado");
+            }
+            
             const isValidPassword = await bcrypt.compare(password, user.password);
 
-            if(!isValidPassword || user === undefined) {
-                throw new Error("Usuario o contraseña incorrectos");
+            if(!isValidPassword) {
+                throw new Error("Contraseña incorrecta");
             }
 
             const token = jwt.sign({ 

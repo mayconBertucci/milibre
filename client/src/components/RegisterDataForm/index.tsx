@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 import { FormEvent, useState, useContext, useEffect, useRef } from 'react';
 import { UserRegContext } from './../../contexts/UserRegContext';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 interface IUser {
     name: string,
@@ -42,7 +43,7 @@ export function RegisterDataForm() {
         router.push('/register');
     }
 
-    const handleIsValid = (e) => {
+    const handleIsValid = (e: FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         if (data !== undefined) {
@@ -71,8 +72,12 @@ export function RegisterDataForm() {
         });
 
         const parsedRes = await response.json();
-        if (parsedRes) {
+        
+        if (!parsedRes.message) {
+            toast.success('Usuario registrado con exito');
             router.push('/login');
+        } else {
+            toast.error(parsedRes.message);
         }
     } 
 
@@ -88,7 +93,7 @@ export function RegisterDataForm() {
 
                 <div className={styles.buttonsActions}>
                     <input type="button" className={styles.cancelar} onClick={handleReturn} value="Volver" />
-                    <button className={styles.enviar} onClick={handleIsValid}>Enviar</button>
+                    <button className={styles.enviar} onClick={(e: FormEvent<HTMLButtonElement>) => handleIsValid(e)}>Enviar</button>
                 </div>
             </form>
         </div>
