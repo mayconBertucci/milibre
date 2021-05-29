@@ -7,13 +7,14 @@ class SendMailService {
         const transporter = nodemailer.createTransport({
             host: 'smtp.umbler.com',
             port: 587,
+            secure: false,
             auth: {
                 user: process.env.USER_EMAIL,
                 pass: process.env.PASSWORD_EMAIL,
-            },
+            }, 
             tls: {
                 rejectUnauthorized: false
-            }
+            } 
         });
 
         this.client = transporter; 
@@ -26,10 +27,6 @@ class SendMailService {
             to: 'mayconbertucci@gmail.com',
             subject: 'Hola',
             html: 'Hola Mundo!',
-        });
-
-        this.client.verify(function (error, _) {
-            console.error(error);
         });
 
         console.log(message);
