@@ -35,7 +35,7 @@ export class CreateUser1619179670138 implements MigrationInterface {
                     },
                     {
                         name: 'points',
-                        type: 'number',
+                        type: 'float',
                         default: 0
                     },
                     {
@@ -54,7 +54,7 @@ export class CreateUser1619179670138 implements MigrationInterface {
                     },
                     {
                         name: 'num_books',
-                        type: 'number',
+                        type: 'int',
                         default: 0
                     },
                     {

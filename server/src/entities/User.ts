@@ -20,22 +20,34 @@ class User {
     @Column()
     birthday: Date;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     photo: string;
 
     @Column()
     location: string;
 
-    @Column()
+    @Column({ 
+        type: "float" ,
+        nullable: true
+    })
     points: number;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     favorite_book: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     favorite_author: string;
 
-    @Column()
+    @Column({ 
+        type: "int",
+        nullable: true
+    })
     num_books: number;
 
     @JoinColumn({ name: 'contact_id' })
@@ -45,7 +57,9 @@ class User {
     @OneToMany(type => Book, book => book.user)
     book: Book[];
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     contact_id: string;
 
     @UpdateDateColumn()

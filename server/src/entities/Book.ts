@@ -11,25 +11,37 @@ class Book {
     @Column()
     titol: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     author: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     isbn: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     description: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     genre: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     photo: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     book_status: string;
 
-    @Column()
+    @Column({ type: "float" })
     book_note: number;
     
     @JoinColumn({ name: 'user_id' })

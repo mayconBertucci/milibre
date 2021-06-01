@@ -4,7 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "dev": "ts-node-dev src/server.ts",
+    "typeormdev": "ts-node-dev node_modules/typeorm/cli.js",
+    "mgr": "node node_modules/typeorm/cli.js",
+    "run": "yarn mgr migration:run",
+    "start": "node dist/src/server.js",
     "typeorm": "ts-node-dev node_modules/typeorm/cli.js"
   },
   "dependencies": {
@@ -17,8 +22,9 @@
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
     "nodemailer": "^6.6.1",
+    "pg": "^8.6.0",
+    "postgres": "^1.0.2",
     "reflect-metadata": "^0.1.13",
-    "sqlite3": "^5.0.2",
     "typeorm": "^0.2.32",
     "uuid": "^8.3.2"
   },

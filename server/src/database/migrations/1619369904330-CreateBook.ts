@@ -45,7 +45,7 @@ export class CreateBook1619369904330 implements MigrationInterface {
                     },
                     {
                         name: 'book_note',
-                        type: 'number',
+                        type: 'float',
                         default: 0
                     },
                     {

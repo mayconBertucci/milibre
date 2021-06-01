@@ -29,7 +29,6 @@ class SendMailService {
             html: 'Hola Mundo!',
         });
 
-        console.log(message);
         console.log('Message sent: %s', message.messageId);
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message));
     }

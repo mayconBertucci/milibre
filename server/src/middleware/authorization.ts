@@ -13,7 +13,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     next();
 
   } catch (err) {
-    console.error(err.message);
     return res.status(400).json('Invalid Token');
   }
 };

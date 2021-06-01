@@ -25,7 +25,7 @@ export function LoginForm() {
         e.preventDefault();
         
         if (data) {
-            const response = await fetch('http://localhost:3333/auth', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ENVIRONMENT === 'local' ? 'http://' : 'https://'}${process.env.NEXT_PUBLIC_BASE_URL}/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

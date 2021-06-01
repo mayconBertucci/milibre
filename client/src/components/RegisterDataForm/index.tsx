@@ -63,7 +63,7 @@ export function RegisterDataForm() {
     }
 
     const onSubmit = async () => {
-        const response = await fetch('http://localhost:3333/users', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_ENVIRONMENT === 'local' ? 'http://' : 'https://'}${process.env.NEXT_PUBLIC_BASE_URL}/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
