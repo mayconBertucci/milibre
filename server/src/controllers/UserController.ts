@@ -87,7 +87,7 @@ class UserController {
 
             const id = req.params.id
             const user = await userRepository.findOneOrFail({ id: id });
-            user.points++;
+            user.points += 1;
 
             return res.json(user);
         } catch (error) {
@@ -101,7 +101,7 @@ class UserController {
 
             const id = req.params.id;
             const user = await userRepository.findOneOrFail({ id: id });
-            user.num_books++;
+            user.num_books += 1;
             return res.json(user);
         } catch (error) {
             return res.status(400).json({ message: error.message });

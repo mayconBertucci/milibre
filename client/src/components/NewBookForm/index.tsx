@@ -134,7 +134,7 @@ export default function NewBookForm() {
         const parsedRes = await response.json();
 
         const responseUser = await fetch(`${process.env.NEXT_PUBLIC_ENVIRONMENT === 'local' ? 'http://' : 'https://'}${process.env.NEXT_PUBLIC_BASE_URL}/user-num-books/${userContext.user.id}`, {
-            method: 'PATCH'
+            method: 'PATCH',
         });
         const parsedResUser = await responseUser.json();
 
